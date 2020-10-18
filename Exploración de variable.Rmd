@@ -1,0 +1,144 @@
+---
+title: "Análisis de variable"
+author: "Xiomara Quiñonez"
+date: "18/10/2020"
+output: html_document
+---
+
+Base de datos
+```{r}
+library(rio)
+link="https://github.com/orlando-20181209/Entrega-1/raw/master/BaseFinalmerge.csv"
+BaseFinal=import(link)
+```
+
+
+```{r}
+names(BaseFinal)
+str(BaseFinal)
+```
+Vista general
+```{r}
+summary(BaseFinal)
+```
+Estabilidad Política
+```{r}
+summary(BaseFinal$EstabilidadPolítica)
+sd(BaseFinal$EstabilidadPolítica)
+var(BaseFinal$EstabilidadPolítica)
+```
+-Estadísticos de dispersión
+```{r}
+library(e1071)
+skewness(BaseFinal$EstabilidadPolítica)
+kurtosis(BaseFinal$EstabilidadPolítica)
+```
+```{r}
+quantile(BaseFinal$EstabilidadPolítica, prob=c(0,0.25,0.5,0.75,1))
+```
+
+
+-Análisis Gráfico
+```{r}
+hist(BaseFinal$EstabilidadPolítica, col = "pink",main = "Histrogama de Estabilidad Política", xlab = "Estabilidad Política")
+```
+Procesos Electorales y Pluralismo
+```{r}
+summary(BaseFinal$Electoral)
+sd(BaseFinal$Electoral)
+var(BaseFinal$Electoral)
+```
+-Estadísticos de dispersión
+```{r}
+skewness(BaseFinal$Electoral)
+kurtosis(BaseFinal$Electoral)
+```
+```{r}
+hist(BaseFinal$Electoral, col = "purple",main = "Histrogama de Procesos Electorales y Pluralismo", xlab = "Electoral")
+```
+Cultura Política
+```{r}
+summary(BaseFinal$Politicalculture)
+sd(BaseFinal$Politicalculture)
+var(BaseFinal$Politicalculture)
+```
+-Estadísticos de dispersión
+```{r}
+skewness(BaseFinal$Politicalculture)
+kurtosis(BaseFinal$Politicalculture)
+```
+Gráfico
+```{r}
+boxplot(BaseFinal$Politicalculture,col = "blue",main = "Boxplot de Cultura Política", xlab = "Cultura Política")
+```
+Libertades Civiles
+```{r}
+summary(BaseFinal$Civilliberties)
+sd(BaseFinal$Civilliberties)
+var(BaseFinal$Civilliberties)
+```
+-Estadísticos de dispersión
+```{r}
+skewness(BaseFinal$Civilliberties)
+kurtosis(BaseFinal$Civilliberties)
+```
+Gráfico
+```{r}
+boxplot(BaseFinal$Politicalculture,col = "orange",main = "Boxplot de Libertades Civiles", xlab = "Libertades Civiles")
+```
+ANALISIS BIVARIADO
+Variables: Gasto Social y Estabilidad Política
+```{r}
+cor.test(~EstabilidadPolítica+gastosocial,data=BaseFinal)
+```
+
+
+```{r}
+plot(BaseFinal$EstabilidadPolítica, BaseFinal$gastosocial, 
+     main="Relación entre Gasto Social y Estabilidad Política", 
+     xlab="Estabilidad Política", 
+     ylab="Gasto Social")
+```
+Procesos Electorales y Pluralismo
+```{r}
+cor.test(~Electoral+gastosocial,data=BaseFinal)
+```
+Gráfico
+```{r}
+plot(BaseFinal$Electoral, BaseFinal$gastosocial, 
+     main="Relación entre Gasto Social y Procesos Electorales y Pluralismo", 
+     xlab="Procesos Electorales y Pluralismo", 
+     ylab="Gasto Social")
+```
+Cultura Política
+```{r}
+cor.test(~Politicalculture+gastosocial,data=BaseFinal)
+```
+```{r}
+plot(BaseFinal$Politicalculture, BaseFinal$gastosocial, 
+     main="Relación entre Gasto Social y Cultura Política", 
+     xlab="Cultura Política", 
+     ylab="Gasto Social")
+```
+Libertades Civiles
+```{r}
+cor.test(~Civilliberties+gastosocial,data=BaseFinal)
+```
+Gráfico
+```{r}
+plot(BaseFinal$Civilliberties, BaseFinal$gastosocial, 
+     main="Relación entre Gasto Social y Libertades Civiles", 
+     xlab="Libertidades Civiles", 
+     ylab="Gasto Social")
+```
+
+
+
+
+
+
+
+
+
+
+
